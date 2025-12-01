@@ -116,6 +116,37 @@ python detect.py --image path/to/image.jpg --no-cnn
 
 📖 **See [UI_GUIDE.md](UI_GUIDE.md) for detailed UI usage instructions**
 
+### 🎯 Quick Training Setup
+
+Want to train for >80% accuracy right away?
+
+**Use ImageNet-Mini dataset (1000 real images from Kaggle):**
+
+```bash
+# 1. Install Kaggle API
+pip install kaggle
+
+# 2. Setup Kaggle credentials (get from kaggle.com/settings)
+mkdir -p ~/.kaggle
+mv ~/Downloads/kaggle.json ~/.kaggle/
+chmod 600 ~/.kaggle/kaggle.json
+
+# 3. Download real images
+python scripts/download_dataset.py --real-only
+
+# 4. Generate or download 1000 AI images
+python scripts/generate_ai_images.py --count 1000
+
+# 5. Train models
+python src/train.py --data_dir data --model_type both --epochs 50
+
+# 6. Start using!
+python app.py
+```
+
+📖 **See [QUICKSTART.md](QUICKSTART.md) for complete step-by-step guide**
+📖 **See [DATASET_SETUP.md](DATASET_SETUP.md) for dataset preparation details**
+
 ### Example Output
 
 ```
