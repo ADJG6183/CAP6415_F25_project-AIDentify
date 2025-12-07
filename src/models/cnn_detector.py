@@ -223,7 +223,9 @@ class DeepLearningDetector:
         # Convert to tensor and add batch dimension
         image = torch.from_numpy(image).permute(2, 0, 1).unsqueeze(0)
 
-        return image.to(self.device)
+        # Match the model's dtype (convert to same dtype as model weights)
+        model_dtype = next(self.model.parameters()).dtype
+        return image.to(self.device).to(model_dtype)
 
     def predict_proba(self, image: np.ndarray) -> float:
         """

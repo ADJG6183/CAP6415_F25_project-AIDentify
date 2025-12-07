@@ -22,10 +22,10 @@ import cv2
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from detectors.frequency_detector import FrequencyDomainDetector
-from detectors.statistical_detector import StatisticalDetector
-from models.cnn_detector import AIImageDetectorCNN, EfficientNetDetector
-from utils.image_processing import load_image, normalize_image
+from src.detectors.frequency_detector import FrequencyDomainDetector
+from src.detectors.statistical_detector import StatisticalDetector
+from src.models.cnn_detector import AIImageDetectorCNN, EfficientNetDetector
+from src.utils.image_processing import load_image, normalize_image
 
 
 class ImageDataset(Dataset):

@@ -177,8 +177,8 @@ class EnsembleDetector:
         stat_features = self.statistical_detector.extract_features(image)
         all_features.extend(stat_features)
 
-        # Combine features
-        feature_vector = np.array(all_features).reshape(1, -1)
+        # Combine features and ensure consistent dtype
+        feature_vector = np.array(all_features, dtype=np.float64).reshape(1, -1)
 
         # Predict
         if hasattr(self.ml_model, 'predict_proba'):

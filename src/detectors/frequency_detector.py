@@ -63,10 +63,18 @@ class FrequencyDomainDetector:
         wavelet_features = self._extract_wavelet_features(gray)
         features.extend(wavelet_features)
 
-        return np.array(features)
+        # Ensure consistent dtype (float64) for all features
+        return np.array(features, dtype=np.float64)
 
     def _extract_dct_features(self, gray: np.ndarray) -> list:
         """Extract DCT-based features."""
+        # Ensure even dimensions for DCT (OpenCV requirement)
+        h, w = gray.shape
+        if h % 2 != 0:
+            gray = gray[:-1, :]
+        if w % 2 != 0:
+            gray = gray[:, :-1]
+
         # Compute DCT
         dct = cv2.dct(np.float32(gray))
 

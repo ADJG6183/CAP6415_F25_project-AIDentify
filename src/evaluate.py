@@ -17,8 +17,8 @@ import seaborn as sns
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from detectors.ensemble_detector import EnsembleDetector
-from utils.image_processing import load_image
+from src.detectors.ensemble_detector import EnsembleDetector
+from src.utils.image_processing import load_image
 
 
 def evaluate_on_dataset(detector, image_paths, labels, method='weighted_average', threshold=0.5):

@@ -78,7 +78,8 @@ class StatisticalDetector:
         texture_features = self._extract_texture_features(image)
         features.extend(texture_features)
 
-        return np.array(features)
+        # Ensure consistent dtype (float64) for all features
+        return np.array(features, dtype=np.float64)
 
     def _extract_color_features(self, image: np.ndarray) -> List[float]:
         """Extract color distribution features."""
