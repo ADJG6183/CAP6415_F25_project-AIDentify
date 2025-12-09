@@ -14,8 +14,6 @@
 - **High Accuracy**: Achieves >80% accuracy when properly trained
 - **Flexible Deployment**: Use with or without deep learning models based on your resources
 - **Comprehensive Analysis**: Provides confidence scores and individual detector breakdowns
-- **Easy to Use**: Simple CLI interface and Python API
-- **Extensible**: Modular design allows easy addition of new detection methods
 
 ## Detection Methods (Learned through research)
 
