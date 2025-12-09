@@ -12,7 +12,7 @@
 
 **Impact**: This system provides researchers, journalists, and content moderators with a practical tool for verifying image authenticity, demonstrating the application of computer vision techniques to address real-world challenges in the age of generative AI.
 
-## 🎯 Features
+## Features
 
 - **Multi-Method Ensemble Detection**: Combines frequency domain analysis, statistical features, and deep learning
 - **High Accuracy**: Achieves >80% accuracy when properly trained
@@ -50,15 +50,6 @@ Combines all methods for robust detection:
 - Majority voting
 - ML model on combined features
 
-## 📊 Performance
-
-| Method | Accuracy | Speed | Resources |
-|--------|----------|-------|-----------|
-| Frequency + Statistical (Heuristic) | 60-70% | Fast | Low |
-| Trained ML Model | 75-85% | Fast | Low |
-| Trained CNN | 85-95% | Medium | GPU Recommended |
-| Ensemble (ML + CNN) | **90-97%** | Medium | GPU Recommended |
-
 ## 🚀 Quick Start
 
 ### Installation
@@ -72,88 +63,17 @@ cd CAP6415_F25_project-AIDentify
 pip install -r requirements.txt
 ```
 
-### 🎨 User Interfaces
+### 🎨 User Interface
 
-AIDentify offers **three ways** to detect AI-generated images:
-
-#### 1. **Web UI** (Recommended - Most User-Friendly)
+#### 1. **Web UI** 
 
 ```bash
 python app.py
 ```
-
-Opens a modern web interface in your browser with:
-- 🖼️ Drag-and-drop image upload
-- 📊 Visual results with charts
-- 📁 Batch processing for multiple images
-- ⚙️ Easy-to-use settings
-- 📱 Mobile-friendly
-
-**Perfect for**: General use, analyzing multiple images, visual feedback
-
-#### 2. **Desktop UI** (Traditional GUI)
-
-```bash
-python app_desktop.py
-```
-
-Opens a native desktop application with:
-- 💻 Traditional window interface
-- 🎨 No browser required
-- 🚀 Quick single-image analysis
-- 📊 Detailed text results
-
-**Perfect for**: Users who prefer desktop apps, quick checks
-
-#### 3. **Command Line** (For Scripts & Automation)
-
-```bash
-# Basic detection (no training required, ~70% accuracy)
-python detect.py --image path/to/image.jpg
-
-# With trained models (>80% accuracy)
-python detect.py --image path/to/image.jpg --method ml_model --verbose
-
-# Fast mode (without CNN)
-python detect.py --image path/to/image.jpg --no-cnn
-```
-
-**Perfect for**: Automation, scripts, batch processing via terminal
-
-📖 **See [UI_GUIDE.md](UI_GUIDE.md) for detailed UI usage instructions**
-
-### 🎯 Quick Training Setup - Automated!
-
-Want to train for >80% accuracy right away? **Just 3 steps:**
 
 **Datasets Used:**
 - **Real images**: [ImageNet-Mini-1000](https://www.kaggle.com/datasets/ifigotin/imagenetmini-1000) (1000 images)
 - **AI images**: [DALL-E Recognition Dataset](https://www.kaggle.com/datasets/superpotato9/dalle-recognition-dataset)
-
-```bash
-# 1. Install and setup Kaggle API
-pip install kaggle
-
-# Get API token from kaggle.com/settings, then:
-mkdir -p ~/.kaggle
-mv ~/Downloads/kaggle.json ~/.kaggle/
-chmod 600 ~/.kaggle/kaggle.json
-
-# 2. Download BOTH datasets automatically (5-10 minutes)
-python scripts/setup_complete_dataset.py
-
-# 3. Train models (1-3 hours)
-python src/train.py --data_dir data --model_type both --epochs 50
-
-# 4. Start using!
-python app.py
-```
-
-**Expected Result: 90-95% accuracy** (exceeds >80% requirement!) 🎯
-
-📖 **See [SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.md) for complete step-by-step guide**
-📖 **See [QUICKSTART.md](QUICKSTART.md) for alternative methods**
-📖 **See [DATASET_SETUP.md](DATASET_SETUP.md) for other dataset options**
 
 ### Example Output
 
@@ -286,161 +206,3 @@ print(f"AI-generated: {result['is_ai_generated']}")
 print(f"Probability: {result['probability']:.2%}")
 print(f"Confidence: {result['confidence']:.2%}")
 ```
-
-## 🔧 Advanced Usage
-
-### Custom Ensemble Weights
-
-```python
-weights = {
-    'frequency': 0.3,
-    'statistical': 0.2,
-    'cnn': 0.5
-}
-
-detector = EnsembleDetector(weights=weights, use_cnn=True)
-```
-
-### Feature Importance Analysis
-
-```python
-detector = EnsembleDetector(ml_model_path='trained_models/ml_model.pkl')
-importance = detector.get_feature_importance()
-# Analyze which features are most discriminative
-```
-
-### Batch Processing
-
-```python
-import os
-
-for image_file in os.listdir('images/'):
-    image = load_image(os.path.join('images/', image_file))
-    result = detector.predict(image)
-    print(f"{image_file}: {'AI' if result['is_ai_generated'] else 'Real'} "
-          f"(prob: {result['probability']:.2f})")
-```
-
-## 📖 Documentation
-
-- **[UI Guide](UI_GUIDE.md)**: Complete guide to Web UI, Desktop UI, and CLI usage
-- **[Implementation Guide](IMPLEMENTATION_GUIDE.md)**: Detailed technical documentation
-- **[Jupyter Notebook Demo](notebooks/demo_detection.ipynb)**: Interactive examples
-- **[example_usage.py](example_usage.py)**: Python API examples
-- Code documentation in source files
-
-## 🧪 Scientific Principles
-
-This system implements principles from computer vision and image processing:
-
-1. **Fourier Transform**: FFT/DCT analysis for frequency domain features
-2. **Image Statistics**: Benford's Law, color distributions, noise analysis
-3. **Texture Analysis**: GLCM, LBP for texture characterization
-4. **Wavelet Decomposition**: Multi-resolution analysis
-5. **Deep Learning**: CNNs for hierarchical feature learning
-6. **Ensemble Methods**: Combining weak learners for robust prediction
-
-## 📁 Project Structure
-
-```
-CAP6415_F25_project-AIDentify/
-├── src/
-│   ├── detectors/
-│   │   ├── frequency_detector.py      # Frequency domain analysis
-│   │   ├── statistical_detector.py    # Statistical features
-│   │   └── ensemble_detector.py       # Ensemble combination
-│   ├── models/
-│   │   └── cnn_detector.py            # Deep learning models
-│   ├── utils/
-│   │   └── image_processing.py        # Image utilities
-│   ├── train.py                       # Training pipeline
-│   └── evaluate.py                    # Evaluation script
-├── data/                              # Training/test data
-├── trained_models/                    # Saved model weights
-├── notebooks/                         # Jupyter notebooks
-│   └── demo_detection.ipynb           # Interactive demo
-├── app.py                             # Web UI (Gradio)
-├── app_desktop.py                     # Desktop UI (Tkinter)
-├── detect.py                          # CLI detection script
-├── example_usage.py                   # Python API examples
-├── requirements.txt                   # Dependencies
-├── README.md                          # This file
-├── UI_GUIDE.md                        # UI usage guide
-└── IMPLEMENTATION_GUIDE.md            # Technical documentation
-```
-
-## 🎓 Educational Context
-
-This project was developed for CAP6415 (Computer Vision) and demonstrates:
-- Application of frequency domain analysis
-- Statistical pattern recognition
-- Deep learning for image classification
-- Ensemble methods for robust prediction
-- Practical implementation of CV concepts
-
-## 🤝 Contributing
-
-Contributions are welcome! Areas for improvement:
-- Additional detection methods
-- Support for video analysis
-- Explainable AI features (highlight suspicious regions)
-- Detection of specific generator architectures
-- Performance optimizations
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Computer Vision course materials (CAP6415)
-- Research papers on GAN fingerprinting and synthetic image detection
-- PyTorch and scikit-learn communities
-- Open-source computer vision libraries
-
-## 📧 Contact
-
-For questions or issues, please open an issue on GitHub or contact the project maintainer.
-
-## ⚠️ Ethical Considerations
-
-This tool is designed for:
-- Academic research
-- Content verification
-- Media forensics
-- Educational purposes
-
-Please use responsibly and consider:
-- Privacy implications
-- False positive/negative impacts
-- Ethical use of detection results
-- Continuous evolution of generation techniques
-
----
-
-**Note**: Detection accuracy depends on training data quality and diversity. For production use, regularly update models with new AI-generated content samples as generation techniques evolve.
-
-## 🚀 Getting >80% Accuracy
-
-To achieve >80% accuracy:
-
-1. ✅ Use quality, diverse training data (1000+ images per class)
-2. ✅ Train both ML and CNN models
-3. ✅ Use ensemble method with CNN enabled
-4. ✅ Optimize threshold based on your specific use case
-5. ✅ Regularly update models as AI generation improves
-
-**Quick Setup for >80% Accuracy**:
-```bash
-# 1. Prepare dataset (>1000 images per class)
-# 2. Train both models
-python src/train.py --data_dir data --model_type both --epochs 50
-
-# 3. Evaluate
-python src/evaluate.py --data_dir data/test --method weighted_average
-
-# 4. Use for detection
-python detect.py --image test.jpg --method weighted_average
-```
-
-Expected result: **85-95% accuracy** with proper training data! 🎯
