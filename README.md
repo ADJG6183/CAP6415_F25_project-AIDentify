@@ -14,6 +14,7 @@
 - **High Accuracy**: Achieves >80% accuracy when properly trained
 - **Flexible Deployment**: Use with or without deep learning models based on your resources
 - **Comprehensive Analysis**: Provides confidence scores and individual detector breakdowns
+- **Gradio UI**
 
 ## Detection Methods (Learned through research)
 
