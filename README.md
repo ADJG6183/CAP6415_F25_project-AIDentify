@@ -1,14 +1,10 @@
 # AIDentify - AI-Generated Image Detection System
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Accuracy](https://img.shields.io/badge/accuracy->80%25-success.svg)
-
 ## Abstract
 
-**Problem**: The proliferation of AI-generated images from models like DALL-E, Midjourney, and Stable Diffusion poses significant challenges for content authenticity verification. Distinguishing between real photographs and synthetic images is increasingly difficult as generative models produce photorealistic outputs. This raises concerns for media integrity, misinformation detection, and digital forensics.
+**Problem**: The proliferation of AI-generated images from models like DALL-E, Midjourney, and Stable Diffusion poses significant challenges for content authenticity verification. Distinguishing between real photographs and AI-generated images is increasingly difficult as generative models produce photorealistic outputs. This raises concerns for media integrity, misinformation detection, and digital forensics.
 
-**Solution**: AIDentify addresses this challenge through a multi-method ensemble detection system that achieves >90% accuracy in classifying images as real or AI-generated. The system combines three complementary approaches: (1) **frequency domain analysis** examining DCT/FFT patterns to detect generator artifacts and unnatural spectral characteristics, (2) **statistical feature extraction** analyzing color distributions, noise patterns, texture properties (GLCM, LBP), and Benford's Law compliance, and (3) **deep learning classification** using custom CNNs and EfficientNet transfer learning for end-to-end feature learning. By fusing these methods through weighted averaging or trained ensemble models, AIDentify leverages both classical computer vision principles and modern deep learning to provide robust, explainable detection with individual confidence scores from each method.
+**Solution**: AIDentify addresses this challenge through a multi-method ensemble detection system that achieves accuracy in classifying images as real or AI-generated. The system combines three complementary approaches: (1) **frequency domain analysis** examining DCT/FFT patterns to detect generator artifacts and unnatural spectral characteristics, (2) **statistical feature extraction** analyzing color distributions, noise patterns, texture properties (GLCM, LBP), and Benford's Law compliance, and (3) **deep learning classification** using custom CNNs and EfficientNet transfer learning for end-to-end feature learning. By fusing these methods through weighted averaging or trained ensemble models, AIDentify leverages both classical computer vision principles and modern deep learning to provide robust, explainable detection with individual confidence scores from each method.
 
 **Impact**: This system provides researchers, journalists, and content moderators with a practical tool for verifying image authenticity, demonstrating the application of computer vision techniques to address real-world challenges in the age of generative AI.
 
@@ -21,7 +17,7 @@
 - **Easy to Use**: Simple CLI interface and Python API
 - **Extensible**: Modular design allows easy addition of new detection methods
 
-## 🔬 Detection Methods
+## Detection Methods (Learned through research)
 
 ### 1. Frequency Domain Analysis
 Analyzes DCT and FFT patterns to detect:
@@ -50,7 +46,7 @@ Combines all methods for robust detection:
 - Majority voting
 - ML model on combined features
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -63,7 +59,7 @@ cd CAP6415_F25_project-AIDentify
 pip install -r requirements.txt
 ```
 
-### 🎨 User Interface
+### User Interface
 
 #### 1. **Web UI** 
 
@@ -81,7 +77,7 @@ python app.py
 ============================================================
 AI-Generated Image Detection Result
 ============================================================
-🤖 VERDICT: AI-GENERATED
+ VERDICT: AI-GENERATED
 
 Probability of being AI-generated: 87.43%
 Confidence: 74.86%
@@ -97,7 +93,7 @@ Individual Detector Results:
 ============================================================
 ```
 
-## 📚 Training Models
+##  Steps I took to Train Models
 
 ### 1. Prepare Your Dataset
 
@@ -114,11 +110,9 @@ data/
     └── ...
 ```
 
-**Recommendations**:
-- At least 1000 images per class
-- Diverse sources (different AI generators, different cameras)
-- Balanced classes
-- High-quality images
+**Sub Notes**:
+- I Utilized a dataset of 1000 images.
+- A dataset with more high quality could increase the accuracy.
 
 ### 2. Train ML Model (Feature-based)
 
@@ -149,12 +143,10 @@ python src/train.py \
 
 **Options**:
 - `--cnn_type`: Choose `custom` or `efficientnet`
-- `--epochs`: Number of training epochs (50-100 recommended)
-- `--batch_size`: Adjust based on GPU memory
+- `--epochs`: Number of training epochs (I used 10)
 - Training time: 1-4 hours with GPU
-- Expected accuracy: 85-95%
 
-### 4. Train Both Models
+### 4. Train Both Models (Step I took)
 
 ```bash
 python src/train.py \
@@ -164,7 +156,7 @@ python src/train.py \
     --output_dir trained_models
 ```
 
-## 📈 Evaluation
+## Evaluation (Accuracy Score)
 
 Evaluate your trained models:
 
@@ -185,24 +177,3 @@ This generates:
 - Score distribution plots
 - Optimal threshold recommendation
 
-## 💻 Python API Usage
-
-```python
-from src.detectors.ensemble_detector import EnsembleDetector
-from src.utils.image_processing import load_image
-
-# Initialize detector
-detector = EnsembleDetector(
-    ml_model_path='trained_models/ml_model_random_forest.pkl',
-    cnn_model_path='trained_models/cnn_model_efficientnet.pth',
-    use_cnn=True
-)
-
-# Load and analyze image
-image = load_image('path/to/image.jpg')
-result = detector.predict(image, threshold=0.5)
-
-print(f"AI-generated: {result['is_ai_generated']}")
-print(f"Probability: {result['probability']:.2%}")
-print(f"Confidence: {result['confidence']:.2%}")
-```
