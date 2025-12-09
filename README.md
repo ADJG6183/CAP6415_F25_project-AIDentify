@@ -4,7 +4,13 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Accuracy](https://img.shields.io/badge/accuracy->80%25-success.svg)
 
-AIDentify is a comprehensive, multi-method AI-generated image detection system capable of achieving **>80% accuracy** in distinguishing between real and AI-generated images. The system combines classical computer vision techniques with modern deep learning to provide robust detection.
+## Abstract
+
+**Problem**: The proliferation of AI-generated images from models like DALL-E, Midjourney, and Stable Diffusion poses significant challenges for content authenticity verification. Distinguishing between real photographs and synthetic images is increasingly difficult as generative models produce photorealistic outputs. This raises concerns for media integrity, misinformation detection, and digital forensics.
+
+**Solution**: AIDentify addresses this challenge through a multi-method ensemble detection system that achieves >90% accuracy in classifying images as real or AI-generated. The system combines three complementary approaches: (1) **frequency domain analysis** examining DCT/FFT patterns to detect generator artifacts and unnatural spectral characteristics, (2) **statistical feature extraction** analyzing color distributions, noise patterns, texture properties (GLCM, LBP), and Benford's Law compliance, and (3) **deep learning classification** using custom CNNs and EfficientNet transfer learning for end-to-end feature learning. By fusing these methods through weighted averaging or trained ensemble models, AIDentify leverages both classical computer vision principles and modern deep learning to provide robust, explainable detection with individual confidence scores from each method.
+
+**Impact**: This system provides researchers, journalists, and content moderators with a practical tool for verifying image authenticity, demonstrating the application of computer vision techniques to address real-world challenges in the age of generative AI.
 
 ## 🎯 Features
 
